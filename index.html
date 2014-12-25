@@ -1,35 +1,35 @@
-<!DOCTYPE html>
-<html>
 
+<!DOCTYPE html>
+<html ng-app="bytecom">
 <head>
-<title>Bytecom</title>
+<link rel="stylesheet"
+	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <script
 	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
 </head>
-
+<title>Bytecom</title>
 <body>
-	<div ng-app="" ng-controller="formController">
-		<form novalidate>
-			Login:<br> <input type="text" ng-model="user.login"><br>
-			Senha:<br> <input type="password" ng-model="user.senha">
-			<br> <br>
-			<button ng-click="login()">Login</button>
-			<button type="reset">Limpar</button>
-		</form>
-		<p>form = {{user}}</p>
-		<p>master = {{master}}</p>
+	<div class="container">
+		<div ng-controller="formController">
+			<form novalidate>
+				Login:<br> <input type="text" ng-model="user.login"><br>
+				Senha:<br> <input type="password" ng-model="user.senha">
+				<br> <br>
+				<button ng-click="login()">Login</button>
+				<button type="reset">Limpar</button>
+			</form>
+			<p>form = {{user}}</p>
+			<p>master = {{master}}</p>
+
+		</div>
 	</div>
 
+	<script type="text/javascript" src="js/script.js"></script>
+	<script
+		src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js"></script>
 	<script>
-		function formController ($scope, $http) {
-		    $scope.login = function() {
-		    	$http.post("https://bytecom.herokuapp.com/services/securyte/login?usuario=clairton&senha=admin")
-		        .success(function(response) {
-			        console.log(response);
-		        });
-		    };
-		    $scope.login();
-		};
+	    var hash = CryptoJS.SHA256("clairton");
+	    console.log("HASG = " + hash);
 	</script>
 
 </body>
