@@ -1,7 +1,14 @@
-
 <!DOCTYPE html>
 <html ng-app="bytecom">
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="icon" href="img/logo.png" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<link href="css/bootstrap.min.css" rel="stylesheet" />
+
+<link rel="stylesheet" href="css/login.css">
 <link rel="stylesheet"
 	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <script
@@ -11,26 +18,26 @@
 <body>
 	<div class="container">
 		<div ng-controller="formController">
-			<form novalidate>
-				Login:<br> <input type="text" ng-model="user.login"><br>
-				Senha:<br> <input type="password" ng-model="user.senha">
-				<br> <br>
-				<button ng-click="login()">Login</button>
-				<button type="reset">Limpar</button>
+			<form novalidate class="form-signin">
+				<h2 class="form-signin-heading">Bem vindo!</h2>
+				<div class="form-group has-error">
+					<label class="control-label" for="inputError"> <i
+						class="fa fa-times-circle-o"></i> {{message}}
+					</label> <input id="user" type="text" ng-model="user.login"
+						class="form-control danger" placeholder="Login"
+						autofocus="autofocus" /> <input jsf:id="senha" type="password"
+						ng-model="user.password" class="form-control" placeholder="Senha" />
+				</div>
+				<button ng-click="login()" class="btn btn-primary btn-block">Entrar</button>
+
 			</form>
-			<p>form = {{user}}</p>
-			<p>master = {{master}}</p>
 
 		</div>
 	</div>
 
-	<script type="text/javascript" src="js/script.js"></script>
 	<script
 		src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js"></script>
-	<script>
-	    var hash = CryptoJS.SHA256("clairton");
-	    console.log("HASG = " + hash);
-	</script>
+	<script type="text/javascript" src="js/script.js"></script>
 
 </body>
 </html>
