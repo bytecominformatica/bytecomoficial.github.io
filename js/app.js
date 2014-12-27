@@ -1,7 +1,7 @@
 (function() {
 var app = angular.module('bytecom', [ ]);
 
-technicalStore = [{
+technicalStore = {
 	name: "Fabiano Sousa",
 	email: "fabianosousa62@gmail.com",
 	tasks : [{
@@ -23,19 +23,19 @@ technicalStore = [{
 		status: "APROVADO",
 		createdOn: 1397490980837
 	  }]
-  }];
+  };
 
 app.directive('taskList', function(){
 	return {
 		restrict : 'E',
 		templateUrl : 'partial/task-list.html',
 		controller: function() {
-				this.technicals = technicalStore;
+				this.technical = technicalStore;
 				
 				this.task = {};
-				this.addReview = function(technical){
+				this.addTask = function(){
 				  this.task.createdOn = Date.now();
-				  technical.tasks.push(this.task);
+				  this.technical.tasks.push(this.task);
 				  this.task = {};
 				};
 

@@ -1,16 +1,16 @@
-<form novalidate name="newTaskForm" ng-submit="newTaskForm.$valid && taskCtrl.addTask(task)">
+<form novalidate name="newTaskForm" ng-submit="newTaskForm.$valid && taskCtrl.addTask()">
 
   <h4>Cadastrar nova tarefa</h4>
   <fieldset class="form-group">
 	<select required ng-model="taskCtrl.task.type" class="form-control" ng-options="options for options in ['INSTALAÇÃO', 'MANUTENÇÃO', 'RECOLHIMENTO']" title="Tipo">
-	  <option value="">Selecione</option>
+	  <option value="">Selecione o tipo</option>
 	</select>
   </fieldset>
   <fieldset class="form-group">
 	<textarea ng-model="taskCtrl.task.description" class="form-control" placeholder="Descreva aqui o foi feito..." title="Descrição"></textarea>
   </fieldset>
   <fieldset class="form-group">
-	<input required ng-model="taskCtrl.task.date" type="date" class="form-control" placeholder="Data de execução" title="Data" />
+	<input required ng-model="taskCtrl.task.date" name="taskData" type="date" class="form-control" placeholder="yyyy-MM-dd" title="Data de execução" />
   </fieldset>
   <fieldset class="form-group">
 	<input type="submit" class="btn btn-primary pull-right" value="Salvar" />
@@ -19,8 +19,8 @@
 
 
 <div class="list-group">
-  <div class="list-group-item" ng-repeat="technical in taskCtrl.technicals">
-	<h3>{{technical.name}} <em class="pull-right">{{technical.email}}</em></h3>
+  <div class="list-group-item">
+	<h3>{{taskCtrl.technical.name}} <em class="pull-right">{{taskCtrl.technical.email}}</em></h3>
 	<div class="table-responsive">
 		 <table class="table table-hover">
 			 <caption>Tarefas</caption>
@@ -30,7 +30,7 @@
 			<th>Tipo</th>
 			<th>Status</th>
 		  </thead>
-		  <tr ng-repeat="task in technical.tasks | orderBy:'date'">
+		  <tr ng-repeat="task in taskCtrl.technical.tasks | orderBy:'date'">
 			<td>{{task.date | date}}</td>
 			<td>{{task.description}}</td>
 			<td>{{task.type}}</td>
