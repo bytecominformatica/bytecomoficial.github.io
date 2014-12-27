@@ -31,6 +31,14 @@ app.directive('taskList', function(){
 		templateUrl : 'partial/task-list.html',
 		controller: function() {
 				this.technicals = technicalStore;
+				
+				this.task = {};
+				this.addReview = function(technical){
+				  this.task.createdOn = Date.now();
+				  technical.tasks.push(this.task);
+				  this.task = {};
+				};
+
 			},
 		controllerAs : 'taskCtrl'
 	};

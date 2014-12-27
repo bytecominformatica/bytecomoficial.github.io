@@ -1,5 +1,24 @@
+<form novalidate name="newTaskForm" ng-submit="newTaskForm.$valid && taskCtrl.addTask(task)">
+
+  <h4>Cadastrar nova tarefa</h4>
+  <fieldset class="form-group">
+	<select required ng-model="taskCtrl.task.type" class="form-control" ng-options="options for options in ['INSTALAÇÃO', 'MANUTENÇÃO', 'RECOLHIMENTO']" title="Tipo">
+	  <option value="">Selecione</option>
+	</select>
+  </fieldset>
+  <fieldset class="form-group">
+	<textarea ng-model="taskCtrl.task.description" class="form-control" placeholder="Descreva aqui o foi feito..." title="Descrição"></textarea>
+  </fieldset>
+  <fieldset class="form-group">
+	<input required ng-model="taskCtrl.task.date" type="date" class="form-control" placeholder="Data de execução" title="Data" />
+  </fieldset>
+  <fieldset class="form-group">
+	<input type="submit" class="btn btn-primary pull-right" value="Salvar" />
+  </fieldset>
+</form>
+
+
 <div class="list-group">
-      <!--  Product Container  -->
   <div class="list-group-item" ng-repeat="technical in taskCtrl.technicals">
 	<h3>{{technical.name}} <em class="pull-right">{{technical.email}}</em></h3>
 	<div class="table-responsive">
