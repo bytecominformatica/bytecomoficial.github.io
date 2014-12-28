@@ -29,12 +29,24 @@
 			<th>Descrição</th>
 			<th>Tipo</th>
 			<th>Status</th>
+			<th>Editar</th>
+			<th>Remover</th>
 		  </thead>
 		  <tr ng-repeat="task in taskCtrl.technical.tasks | orderBy:'date'">
 			<td>{{task.date | date}}</td>
 			<td>{{task.description}}</td>
 			<td>{{task.type}}</td>
 			<td>{{task.status}}</td>
+			<td>
+				<button type="button" class="btn btn-primary" title="editar" ng-click="taskCtrl.editTask(task)">
+					<span class="glyphicon glyphicon-edit"></span>
+				</button>
+			</td>
+			<td>
+				<button type="button" class="btn btn-danger" title="remover" ng-click="taskCtrl.removeTask(task)">
+					<span class="glyphicon glyphicon-remove"></span>
+				</button>
+			</td>
 		  </tr>
 		</table> 
 	</div>
