@@ -29,6 +29,8 @@
 			<th>Descrição</th>
 			<th>Tipo</th>
 			<th>Status</th>
+			<th>Criado em</th>
+			<th>Ultima Atualização</th>
 			<th>Editar</th>
 			<th>Remover</th>
 		  </thead>
@@ -37,13 +39,15 @@
 			<td>{{task.description}}</td>
 			<td>{{task.type}}</td>
 			<td>{{task.status}}</td>
+			<td>{{task.createdOn | date:'dd/MM/yyyy'}}</td>
+			<td>{{task.updatedOn | date:'dd/MM/yyyy'}}</td>
 			<td>
-				<a href="#taskFormId" type="button" class="btn btn-primary" title="editar" ng-click="taskCtrl.editTask(task)">
+				<a href="#taskFormId" type="button" class="btn btn-primary" title="editar" ng-click="taskCtrl.editTask(task)" ng-disabled="{{task.status != 'AGUARDANDO APROVAÇÃO'}}">
 					<span class="glyphicon glyphicon-edit"></span>
 				</a>
 			</td>
 			<td>
-				<button type="button" class="btn btn-danger" title="remover" ng-click="taskCtrl.removeTask(task)" ng-focus="taskForm">
+				<button type="button" class="btn btn-danger" title="remover" ng-click="taskCtrl.removeTask(task)" ng-focus="taskForm" ng-disabled="{{task.status != 'AGUARDANDO APROVAÇÃO'}}">
 					<span class="glyphicon glyphicon-remove"></span>
 				</button>
 			</td>

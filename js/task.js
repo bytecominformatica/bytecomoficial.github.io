@@ -3,19 +3,25 @@
 	var app = angular.module('task-directives', [ ]);
 
 
-	app.directive('taskList', ['$filter', function($filter){
+	app.directive('taskList', ['$filter', "$http", function($filter, $http){
 		return {
 			restrict : 'E',
 			templateUrl : 'partial/task-list.html',
 			controller: function() {
-					this.technical = technicalStore;
+					this.limpar = function() {
+						this.task = {date : $filter('date')(Date.now(),'dd/MM/yyyy')};
+					};
 					
-					this.task = {};
-					this.task.date = $filter('date')(Date.now(),'dd/MM/yyyy');
+					this.limpar();
+					
 					this.addTask = function(){
-					  this.task.createdOn = Date.now();
+					  if(!this.task.createdOn){
+						  this.task.createdOn = Date.now();
+					  }
+					  this.task.updatedOn = Date.now();
+					  this.task.status = "AGUARDANDO APROVAÇÃO";
 					  this.technical.tasks.push(this.task);
-					  this.task = {date : Date.now()};
+					  this.limpar();
 					};
 					
 					this.editTask = function(task) {
@@ -26,6 +32,15 @@
 					this.removeTask = function(task) {
 						this.technical.tasks.pop(task);
 					}
+					
+					this.findAll = function($http) {
+						$http.post("https://bytecom.herokuapp.com/services/technicals?email=fabianosousa62@gmail.com")
+						.success(function(response) {
+							this.technical = response;
+						});
+					}
+					
+					this.findAll($http);
 
 				},
 			controllerAs : 'taskCtrl'
