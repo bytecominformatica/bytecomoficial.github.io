@@ -1,4 +1,4 @@
-<form novalidate name="newTaskForm" ng-submit="newTaskForm.$valid && taskCtrl.addTask()">
+<form novalidate id="taskFormId" name="taskForm" ng-submit="(taskForm.$valid && taskCtrl.addTask())">
 
   <h4>Cadastrar nova tarefa</h4>
   <fieldset class="form-group">
@@ -10,10 +10,10 @@
 	<textarea ng-model="taskCtrl.task.description" class="form-control" placeholder="Descreva aqui o foi feito..." title="Descrição"></textarea>
   </fieldset>
   <fieldset class="form-group">
-	<input required ng-model="taskCtrl.task.date" name="taskData" type="date" class="form-control" placeholder="yyyy-MM-dd" title="Data de execução" />
+	<input id="dateId" required ng-model="taskCtrl.task.date" validatedateformat date-date-format="dd/MM/yyyy" name="taskData" type="date" class="form-control" placeholder="dd/MM/yyyy" title="Data de execução" />
   </fieldset>
   <fieldset class="form-group">
-	<input type="submit" class="btn btn-primary pull-right" value="Salvar" />
+	<input type="submit" class="btn btn-primary pull-right" value="Salvar" ng-disabled="taskForm.$invalid" />
   </fieldset>
 </form>
 
@@ -33,17 +33,17 @@
 			<th>Remover</th>
 		  </thead>
 		  <tr ng-repeat="task in taskCtrl.technical.tasks | orderBy:'date'">
-			<td>{{task.date | date}}</td>
+			<td>{{task.date | date:'dd/MM/yyyy'}}</td>
 			<td>{{task.description}}</td>
 			<td>{{task.type}}</td>
 			<td>{{task.status}}</td>
 			<td>
-				<button type="button" class="btn btn-primary" title="editar" ng-click="taskCtrl.editTask(task)">
+				<a href="#taskFormId" type="button" class="btn btn-primary" title="editar" ng-click="taskCtrl.editTask(task)">
 					<span class="glyphicon glyphicon-edit"></span>
-				</button>
+				</a>
 			</td>
 			<td>
-				<button type="button" class="btn btn-danger" title="remover" ng-click="taskCtrl.removeTask(task)">
+				<button type="button" class="btn btn-danger" title="remover" ng-click="taskCtrl.removeTask(task)" ng-focus="taskForm">
 					<span class="glyphicon glyphicon-remove"></span>
 				</button>
 			</td>
