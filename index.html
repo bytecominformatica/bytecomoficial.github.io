@@ -8,7 +8,7 @@
     <script type="text/javascript" src="js/app.js"></script>
     <script type="text/javascript" src="js/task.js"></script>
   </head>
-  <body>
+  <body ng-controller="taskCtrl">
     <!--  Store Header  -->
     <header>
       <h1 class="text-center">Bytecom</h1>
@@ -16,6 +16,65 @@
     </header>
     
     <!--  Products Container  -->
-    <task-list></task-list>
+    <form novalidate id="taskFormId" name="taskForm" ng-submit="(taskForm.$valid && taskCtrl.addTask())">
+
+  <h4>Cadastrar nova tarefa</h4>
+  <fieldset class="form-group">
+	<select required ng-model="taskCtrl.task.type" class="form-control" ng-options="options for options in ['INSTALAÇÃO', 'MANUTENÇÃO', 'RECOLHIMENTO']" title="Tipo">
+	  <option value="">Selecione o tipo</option>
+	</select>
+  </fieldset>
+  <fieldset class="form-group">
+	<textarea ng-model="taskCtrl.task.description" class="form-control" placeholder="Descreva aqui o foi feito..." title="Descrição"></textarea>
+  </fieldset>
+  <fieldset class="form-group">
+	<input id="dateId" required ng-model="taskCtrl.task.date" validatedateformat date-date-format="dd/MM/yyyy" name="taskData" type="date" class="form-control" placeholder="dd/MM/yyyy" title="Data de execução" />
+  </fieldset>
+  <fieldset class="form-group">
+	<input type="submit" class="btn btn-primary pull-right" value="Salvar" ng-disabled="taskForm.$invalid" />
+  </fieldset>
+</form>
+
+
+<div class="list-group">
+  <div class="list-group-item">
+	  <span ng-bind="taskCtrl.task.description"></span>
+	<h3>{{taskCtrl.technical.name}} <em class="pull-right">{{taskCtrl.technical.email}}</em></h3>
+	<div class="table-responsive">
+		 <table class="table table-hover">
+			 <caption>Tarefas</caption>
+		  <thead>
+			<th>Data</th>
+			<th>Descrição</th>
+			<th>Tipo</th>
+			<th>Status</th>
+			<th>Criado em</th>
+			<th>Ultima Atualização</th>
+			<th>Editar</th>
+			<th>Remover</th>
+		  </thead>
+		  <tr ng-repeat="task in technical.tasks | orderBy:'date'">
+			<td>{{task.date | date:'dd/MM/yyyy'}}</td>
+			<td>{{task.description}}</td>
+			<td>{{task.type}}</td>
+			<td>{{task.status}}</td>
+			<td>{{task.createdOn | date:'dd/MM/yyyy'}}</td>
+			<td>{{task.updatedOn | date:'dd/MM/yyyy'}}</td>
+			<td>
+				<a href="#taskFormId" type="button" class="btn btn-primary" title="editar" ng-click="taskCtrl.editTask(task)" ng-disabled="{{task.status != 'AGUARDANDO APROVAÇÃO'}}">
+					<span class="glyphicon glyphicon-edit"></span>
+				</a>
+			</td>
+			<td>
+				<button type="button" class="btn btn-danger" title="remover" ng-click="taskCtrl.removeTask(task)" ng-focus="taskForm" ng-disabled="{{task.status != 'AGUARDANDO APROVAÇÃO'}}">
+					<span class="glyphicon glyphicon-remove"></span>
+				</button>
+			</td>
+		  </tr>
+		</table> 
+	</div>
+  </div>
+</div>
+
   </body>
 </html>
